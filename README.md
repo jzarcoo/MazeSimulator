@@ -34,6 +34,26 @@ $ mvn test    # corre las pruebas unitarias (opcional)
 $ mvn install # genera el archivo proyecto1.jar en el subdirectorio target
 ```
 
+Para generar un laberinto, el programa se debe invocar como sigue:
+
+```sh
+$ java -jar target/proyecto3.jar -g -s 1234 -w 100 -h 100 > ejemplo.mze
+```
+
+donde `-s` es un parámetro opcional que representa la semilla del generador de números aleatorios utilizado, `-w` y `-h` indican cuantás columnas y renglones tendrá el laberinto.
+
+Para resolver un laberinto, el programa se debe invocar como sigue:
+
+```sh
+$ java -jar target/proyecto3.jar < ejemplo.mze > solucion.svg
+```
+
+O, de forma equivalente:
+
+```sh
+$ cat ejemplo.mze | java -jar target/proyecto3.jar > solucion.svg
+```
+
 ## Ejecución
 
 El archivo `proyecto3_test.sh` ejecuta el programa para generar y resolver 7 laberintos, cada uno creado con un algoritmo diferente.
