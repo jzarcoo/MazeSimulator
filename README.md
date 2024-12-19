@@ -1,59 +1,59 @@
 # MazeSimulator
 
-<p>El programa es capaz de <strong>generar y resolver</strong> laberintos representados por un <em>archivo binario</em>. Además, graficarlos en formato <em>SVG</em>.</p>
+<p>The program is capable of <strong>generating and solving</strong> mazes represented by a <em>binary file</em>. Additionally, it can render them in <em>SVG</em> format.</p>
 
-El programa utiliza el algoritmo de **dijkstra** para resolver el laberinto, y utiliza 7 algoritmos diferentes para generar laberintos aleatoriamente:
+The program uses the **Dijkstra** algorithm to solve the maze and implements seven different algorithms for randomly generating mazes:
 
 - Aldous Broder
-- Arbol Binario
+- Binary Tree
 - BFS
 - DFS
 - Hunt And Kill
 - Kruskal
 - Prim
 
-## Características
+## Features
 
-<p>Los laberintos son rectangulares y formados por cuartos cuadrados, con puertas Este, Norte, Oeste y Sur.  Cada puerta tiene un puntaje entre 1 y 31; al pasar una puerta que conecte dos cuartos, el explorador del laberinto sufre una penalización proporcional al puntaje: por lo tanto, nos interesa que el explorador <strong>minimice</strong>  el puntaje de las puertas por las que pase.</p>
+<p>The mazes are rectangular and consist of square rooms with East, North, West, and South doors. Each door has a score between 1 and 31. When passing through a door connecting two rooms, the maze explorer incurs a penalty proportional to the door's score. Therefore, the goal is for the explorer to <strong>minimize</strong> the scores of the doors they pass through.</p>
 
-### Cuartos
+### Rooms
 
-<p>Un cuarto puede serializarse y deserializarse en un byte.</p>
+<p>A room can be serialized and deserialized into a single byte.</p>
 
-- <p>Los 4 bits menos significativos del byte de cada cuarto representan las paredes que tiene el cuarto con sus 4 potenciales vecinos, en orden de menos a más significativo, Este, Norte, Oeste y Sur; el bit en 1 quiere decir que la pared sí existe (o que la puerta no existe), el bit en 0 quiere decir que la pared no existe (o que la puerta sí existe).</p>
+- <p>The 4 least significant bits of the byte for each room represent the walls connected to its 4 potential neighbors, ordered from least to most significant: East, North, West, and South. A bit set to 1 indicates the presence of a wall (or the absence of a door), while a bit set to 0 indicates the absence of a wall (or the presence of a door).</p>
 
-- <p>Los 4 bits más significativos del byte de cada cuarto representan el puntaje del cuarto (no de la puerta). Los valores 0000−1111, que corresponden a 0−15 en decimal serán el puntaje de cada cuarto.</p>
+- <p>The 4 most significant bits of the byte for each room represent the room's score (not the door's). The values 0000–1111, corresponding to 0–15 in decimal, will be the score for each room.</p>
 
-## Uso
+## Usage
 
-El programa está desarrollado en Java y utiliza **Maven** para la gestión de dependencias y la compilación.
-
-```sh
-$ mvn compile # compila el código
-$ mvn test    # corre las pruebas unitarias (opcional)
-$ mvn install # genera el archivo proyecto1.jar en el subdirectorio target
-```
-
-Para generar un laberinto, el programa se debe invocar como sigue:
+The program is developed in Java and uses **Maven** for dependency management and compilation.
 
 ```sh
-$ java -jar target/proyecto3.jar -g -s 1234 -w 100 -h 100 > ejemplo.mze
+$ mvn compile # compiles the code
+$ mvn test    # runs unit tests (optional)
+$ mvn install # generates the proyecto1.jar file in the target subdirectory
 ```
 
-donde `-s` es un parámetro opcional que representa la semilla del generador de números aleatorios utilizado, `-w` y `-h` indican cuantás columnas y renglones tendrá el laberinto.
-
-Para resolver un laberinto, el programa se debe invocar como sigue:
+To generate a maze, invoke the program as follows:
 
 ```sh
-$ java -jar target/proyecto3.jar < ejemplo.mze > solucion.svg
+$ java -jar target/proyecto3.jar -g -s 1234 -w 100 -h 100 > example.mze
 ```
 
-O, de forma equivalente:
+where `-s` is an optional parameter that specifies the seed for the random number generator, and `-w` and `-h` indicate the number of columns and rows in the maze.
+
+To solve a maze, invoke the program as follows:
 
 ```sh
-$ cat ejemplo.mze | java -jar target/proyecto3.jar > solucion.svg
+$ java -jar target/proyecto3.jar < example.mze > solution.svg
 ```
 
-## Ejecución
+Alternatively:
 
-El archivo `proyecto3_test.sh` ejecuta el programa para generar y resolver 7 laberintos, cada uno creado con un algoritmo diferente.
+```sh
+$ cat example.mze | java -jar target/proyecto3.jar > solution.svg
+```
+
+## Execution
+
+The `proyecto3_test.sh` script runs the program to generate and solve seven mazes, each created with a different algorithm.
